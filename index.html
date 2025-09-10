@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco Murgia</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap">
+    <style>
+        @font-face {
+            font-family: 'Gutenberg Textura';
+            src: url('https://raw.githubusercontent.com/georgawhitehouse/GutenbergTextura/main/GutenbergTextura.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            /* Colori dark mode - TUTTO BIANCO */
+            --dark-bg: #1a1a1a;
+            --dark-text: #ffffff;
+            --dark-accent: #ffffff;
+            --dark-link: #ffffff;
+            --dark-border: #3a3a3a;
+            
+            /* Colori day mode - TUTTO NERO OPACO */
+            --day-bg: #f2e6c9;
+            --day-text: #5a4b38; /* Nero opaco */
+            --day-accent: #5a4b38; /* Nero opaco */
+            --day-link: #5a4b38; /* Nero opaco */
+            --day-border: #c4ac86;
+            
+            /* Font */
+            --font-normal: 'Libre Baskerville', serif;
+            --font-headings: 'Playfair Display', serif;
+            --font-gutenberg: 'Gutenberg Textura', cursive;
+            
+            /* Applicazione iniziale */
+            --bg-color: var(--dark-bg);
+            --text-color: var(--dark-text);
+            --accent-color: var(--dark-accent);
+            --link-color: var(--dark-link);
+            --border-color: var(--dark-border);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-normal);
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.4s ease;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            cursor: default;
+        }
+
+        body.day-mode {
+            --bg-color: var(--day-bg);
+            --text-color: var(--day-text);
+            --accent-color: var(--day-accent);
+            --link-color: var(--day-link);
+            --border-color: var(--day-border);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-headings);
+            font-weight: normal;
+            letter-spacing: 0.5px;
+            color: var(--text-color);
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dotted var(--accent-color);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        a:hover {
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        /* Header e toggle */
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-weight: normal;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            color: var(--text-color);
+        }
+
+        /* Separatore con asterischi di Manuzio */
+        .manuzio-separator {
+            font-family: var(--font-headings);
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            color: var(--text-color);
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .manuzio-separator:hover {
+            letter-spacing: 8px;
+        }
+
+        /* Pulsante toggle tema */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--text-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+        }
+
+        .moon-icon, .sun-icon {
+            transition: opacity 0.3s ease;
+            width: 18px;
+            height: 18px;
+        }
+
+        .moon-icon {
+            display: none;
+        }
+
+        body.day-mode .sun-icon {
+            display: none;
+        }
+
+        body.day-mode .moon-icon {
+            display: block;
+        }
+
+        /* Menu Manuziano */
+        .manuzio-menu {
+            display: none;
+            width: 100%;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 1.2rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .manuzio-menu.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .manuzio-menu h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .manuzio-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .manuzio-menu li {
+            margin-bottom: 0.7rem;
+        }
+
+        /* Descrizione */
+        .description {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            text-align: center;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        /* Layout colonne principali */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin: 2.5rem 0;
+        }
+
+        /* Sezioni Investigation e Sudelbücher */
+        .main-section {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 1.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        body.day-mode .main-section {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .main-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-section h2 {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+        }
+
+        .main-section h2:before {
+            content: "⁂";
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .section-description {
+            margin-top: 1rem;
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        /* Pagine Investigation e Sudelbücher */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        .page-header h2, .page-header p {
+            color: var(--text-color);
+        }
+
+        .three-column-layout {
+            display: grid;
+            grid-template-columns: 100px 1fr 120px;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .annual-function {
+            font-family: var(--font-gutenberg);
+            font-size: 1.1rem; /* Leggermente più piccolo */
+            color: var(--text-color);
+            text-align: right;
+            padding-top: 0.3rem;
+        }
+
+        .observation-content {
+            padding: 1rem;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .observation-content h3 {
+            color: var(--text-color);
+            font-size: 1.2rem; /* Leggermente più piccolo */
+            margin-bottom: 0.5rem;
+        }
+
+        .observation-content p {
+            color: var(--text-color);
+            font-size: 0.95rem; /* Leggermente più piccolo */
+        }
+
+        .observation-date {
+            font-family: var(--font-gutenberg);
+            font-size: 1rem; /* Leggermente più piccolo */
+            color: var(--text-color);
+            text-align: left;
+            padding-top: 0.3rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+        }
+
+        .back-button:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* Popup */
+        .article-popup {
+            display: none;
+            position: fixed;
+            width: 320px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            padding: 1.2rem;
+            overflow-y: auto;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .article-popup.active {
+            display: block;
+            animation: fadeIn 0.2s ease;
+            pointer-events: auto;
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .popup-header h3 {
+            color: var(--text-color);
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .popup-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+            font-family: var(--font-normal);
+            transition: all 0.2s ease;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        .popup-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .popup-content {
+            line-height: 1.6;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding-top: 3.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
+
+        .footer-separator {
+            height: 1px;
+            background-color: var(--border-color);
+            margin-bottom: 1.3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .three-column-layout {
+                grid-template-columns: 80px 1fr 100px;
+                gap: 1rem;
+            }
+            
+            body {
+                padding: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .theme-toggle {
+                position: relative;
+                margin-top: 1rem;
+            }
+            
+            .header-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <header>
+        <div class="header-container">
+            <h1>Marco Murgia</h1>
+            <div class="manuzio-separator" id="manuzio-menu-toggle">⁂⁂⁂</div>
+            <button id="theme-toggle" class="theme-toggle">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 2V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 20V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M4 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M22 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M5.636 5.636L7.05 7.05" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16.95 16.95L18.364 18.364" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M18.364 5.636L16.95 7.05" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M7.05 16.95L5.636 18.364" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.5 14.5C19.5509 14.9563 18.4902 15.1669 17.4246 15.1086C16.359 15.0503 15.3346 14.7252 14.4613 14.1702C13.588 13.6152 12.8995 12.852 12.4702 11.9622C12.0409 11.0724 11.8872 10.09 12.0262 9.12855C12.1651 8.16707 12.5908 7.26572 13.2545 6.531C13.9181 5.79628 14.7914 5.25929 15.766 4.98709C16.7407 4.71489 17.7733 4.71896 18.746 5.00018C17.9333 5.9361 17.5 7.14076 17.5 8.38889C17.5 9.63701 17.9333 10.8417 18.746 11.7776C19.5587 12.7135 20.6901 13.3123 21.9167 13.4537C21.2742 13.784 20.5605 13.9641 19.8333 13.9792C19.8333 13.9792 20.5 14.5 20.5 14.5Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+            
+            <!-- Menu Manuziano -->
+            <div class="manuzio-menu" id="manuzio-menu">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="#" data-popup="about" data-title="About Me" data-content="Marco Murgia is a researcher and writer focused on analytical philosophy, epistemology, and the study of heuristics. His work explores the intersection of classical philosophical traditions with contemporary issues.">About Me</a></li>
+                    <li><a href="#" data-popup="contacts" data-title="Contacts" data-content="Email: contact@marcomurgia.com<br>Twitter: @marcomurgia<br>For academic inquiries, please include a brief introduction and purpose of your message.">Contacts</a></li>
+                    <li><a href="#" data-popup="books" data-title="Recommended Books" data-content="1. 'Thinking, Fast and Slow' by Daniel Kahneman<br>2. 'The Black Swan' by Nassim Nicholas Taleb<br>3. 'Gödel, Escher, Bach' by Douglas Hofstadter<br>4. 'Meditations' by Marcus Aurelius<br>5. 'The Structure of Scientific Revolutions' by Thomas Kuhn">Recommended Books</a></li>
+                    <li><a href="#" data-popup="links" data-title="Useful Links" data-content="• Stanford Encyclopedia of Philosophy<br>• Internet Archive<br>• arXiv.org<br>• JSTOR<br>• Project Gutenberg">Useful Links</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="description">
+            <p>This is the website of Marco Murgia, DPhil. I write about analytical philosophy, epistemology, practical methodology and other things I like</p>
+        </div>
+        
+        <!-- Homepage Content -->
+        <div id="home-page" class="page active">
+            <div class="main-content">
+                <div class="main-section" id="investigation-section">
+                    <h2>Investigation</h2>
+                    <p class="section-description">Systematic investigations: something that will never be very thorough or complete.</p>
+                </div>
+                
+                <div class="main-section" id="sudelbucher-section">
+                    <h2>Sudelbücher</h2>
+                    <p class="section-description">Sudelbücher are what in English are called wastebooks: that is, the sheets of paper on which merchants, since the invention of double-entry bookkeeping, recorded income and expenditure, daily transactions or related events, waiting to enter them in the ledger of the business. I first learned about them while reading Steinmetz's biography of Jakob Fugger, and since then I have been fascinated by the fact that an empire of incredible dimensions could be built from torn and fluttering pieces of paper. Now I propose it again here, but with a philosophical twist: these are the scraps of my thoughts, waiting to be organised. It is light reading, something that can be skipped from one aphorism to another without any logic: read the ones you want and draw something from them.
+</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Investigation Page -->
+        <div id="investigation-page" class="page">
+            <div class="page-header">
+                <h2>Investigation</h2>
+                <p>Systematic investigations: something that will never be very thorough or complete.</p>
+            </div>
+            
+            <div class="three-column-layout">
+                <div class="annual-function">c.12</div>
+                <div class="observation-content">
+                    <h3>The Limits of Empirical Knowledge</h3>
+                    <p>An examination of the boundaries of what can be known through empirical observation and the role of a priori reasoning in filling these gaps. This investigation explores the intersection of Kantian epistemology with contemporary cognitive science.</p>
+                </div>
+                <div class="observation-date">15.11.2023</div>
+            </div>
+            
+            <div class="three-column-layout">
+                <div class="annual-function">c.11</div>
+                <div class="observation-content">
+                    <h3>Heuristics and Biases in Philosophical Reasoning</h3>
+                    <p>An analysis of how cognitive heuristics and biases influence philosophical argumentation, with particular attention to confirmation bias in the formation of metaphysical systems.</p>
+                </div>
+                <div class="observation-date">22.10.2023</div>
+            </div>
+            
+            <div class="three-column-layout">
+                <div class="annual-function">c.10</div>
+                <div class="observation-content">
+                    <h3>Temporal Parts and Personal Identity</h3>
+                    <p>A critical assessment of the theory of temporal parts and its implications for our understanding of personal identity over time, with responses to Parfit's reductionist account.</p>
+                </div>
+                <div class="observation-date">17.09.2023</div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="back-button" id="back-from-investigation">←</button>
+            </div>
+        </div>
+        
+        <!-- Sudelbücher Page -->
+        <div id="sudelbucher-page" class="page">
+            <div class="page-header">
+                <h2>Sudelbücher</h2>
+                <p>Random observations and thoughts</p>
+            </div>
+            
+            <div class="three-column-layout">
+                <div class="annual-function">d.24</div>
+                <div class="observation-content">
+                    <h3>On the Nature of Time</h3>
+                    <p>The clock measures time but does not explain it. We slice existence into segments, yet the flow remains mysterious. Is time a fundamental property of the universe or a construct of human consciousness?</p>
+                </div>
+                <div class="observation-date">05.12.2023</div>
+            </div>
+            
+            <div class="three-column-layout">
+                <div class="annual-function">d.23</div>
+                <div class="observation-content">
+                    <h3>The Library as Mind</h3>
+                    <p>A library is not merely a collection of books but an externalized mind. Each volume represents a thought, a perspective, a world. To walk through stacks is to traverse the conceptual universe of humanity.</p>
+                </div>
+                <div class="observation-date">28.11.2023</div>
+            </div>
+            
+            <div class="three-column-layout">
+                <div class="annual-function">d.22</div>
+                <div class="observation-content">
+                    <h3>Memory and Identity</h3>
+                    <p>We are not just what we remember, but also what we've forgotten. The gaps in our memory shape us as much as the preserved moments. Forgetting is not a failure of memory but its necessary counterpart.</p>
+                </div>
+                <div class="observation-date">15.11.2023</div>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="back-button" id="back-from-sudelbucher">←</button>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Popup Generico -->
+    <div class="article-popup" id="article-popup">
+        <div class="popup-header">
+            <h3 id="popup-title">Popup Title</h3>
+            <div class="popup-actions">
+                <button class="popup-btn" id="close-btn">
+                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="popup-content" id="popup-content">
+            <p>Popup content...</p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-separator"></div>
+        <p>© 2025 Marco Murgia - All rights reserved</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('theme-toggle');
+            const body = document.body;
+            const manuzioMenuToggle = document.getElementById('manuzio-menu-toggle');
+            const manuzioMenu = document.getElementById('manuzio-menu');
+            const popup = document.getElementById('article-popup');
+            const closeBtn = document.getElementById('close-btn');
+            const popupTitle = document.getElementById('popup-title');
+            const popupContent = document.getElementById('popup-content');
+            
+            // Elementi di navigazione
+            const homePage = document.getElementById('home-page');
+            const investigationPage = document.getElementById('investigation-page');
+            const sudelbucherPage = document.getElementById('sudelbucher-page');
+            const investigationSection = document.getElementById('investigation-section');
+            const sudelbucherSection = document.getElementById('sudelbucher-section');
+            const backFromInvestigation = document.getElementById('back-from-investigation');
+            const backFromSudelbucher = document.getElementById('back-from-sudelbucher');
+            
+            // Controlla se c'è una preferenza salvata
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'day-mode') {
+                body.classList.add('day-mode');
+            }
+            
+            // Aggiungi listener per il toggle del tema
+            toggleButton.addEventListener('click', function() {
+                if (body.classList.contains('day-mode')) {
+                    body.classList.remove('day-mode');
+                    localStorage.setItem('theme', 'dark-mode');
+                } else {
+                    body.classList.add('day-mode');
+                    localStorage.setItem('theme', 'day-mode');
+                }
+            });
+            
+            // Apri/chiudi menu Manuziano
+            manuzioMenuToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                manuzioMenu.classList.toggle('active');
+            });
+            
+            // Chiudi menu se si clicca fuori
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.header-container') && manuzioMenu.classList.contains('active')) {
+                    manuzioMenu.classList.remove('active');
+                }
+            });
+            
+            // Navigazione entre pagine
+            investigationSection.addEventListener('click', function() {
+                homePage.classList.remove('active');
+                investigationPage.classList.add('active');
+            });
+            
+            sudelbucherSection.addEventListener('click', function() {
+                homePage.classList.remove('active');
+                sudelbucherPage.classList.add('active');
+            });
+            
+            backFromInvestigation.addEventListener('click', function() {
+                investigationPage.classList.remove('active');
+                homePage.classList.add('active');
+            });
+            
+            backFromSudelbucher.addEventListener('click', function() {
+                sudelbucherPage.classList.remove('active');
+                homePage.classList.add('active');
+            });
+            
+            // Gestione popup che segue il mouse
+            let popupTimeout;
+            let activePopup = null;
+            
+            document.querySelectorAll('a[data-popup]').forEach(link => {
+                link.addEventListener('mouseenter', function(e) {
+                    const title = this.getAttribute('data-title');
+                    const content = this.getAttribute('data-content');
+                    
+                    if (title && content) {
+                        clearTimeout(popupTimeout);
+                        popupTitle.textContent = title;
+                        popupContent.innerHTML = content;
+                        
+                        // Posiziona il popup vicino al cursore
+                        popup.style.left = (e.clientX + 15) + 'px';
+                        popup.style.top = (e.clientY + 15) + 'px';
+                        
+                        popup.classList.add('active');
+                        activePopup = popup;
+                    }
+                });
+                
+                link.addEventListener('mousemove', function(e) {
+                    if (activePopup === popup) {
+                        // Posiziona il popup vicino al cursore
+                        popup.style.left = (e.clientX + 15) + 'px';
+                        popup.style.top = (e.clientY + 15) + 'px';
+                    }
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    popupTimeout = setTimeout(() => {
+                        if (activePopup === popup) {
+                            popup.classList.remove('active');
+                            activePopup = null;
+                        }
+                    }, 300);
+                });
+                
+                // Previeni il comportamento predefinito del link
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                });
+            });
+            
+            // Gestione hover sui popup
+            popup.addEventListener('mouseenter', () => {
+                clearTimeout(popupTimeout);
+            });
+            
+            popup.addEventListener('mouseleave', () => {
+                popupTimeout = setTimeout(() => {
+                    popup.classList.remove('active');
+                    activePopup = null;
+                }, 300);
+            });
+            
+            // Chiudi popup
+            closeBtn.addEventListener('click', function() {
+                popup.classList.remove('active');
+                activePopup = null;
+            });
+        });
+    </script>
+</body>
+</html>
