@@ -352,14 +352,15 @@
             color: var(--bg-color);
         }
 
-        /* Popup */
+        /* Popup - MODIFICATO */
         .article-popup {
             display: none;
             position: fixed;
             width: 320px;
+            max-height: 70vh;
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             padding: 1.2rem;
             overflow-y: auto;
@@ -380,6 +381,10 @@
             margin-bottom: 0.8rem;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 0.5rem;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-color);
+            z-index: 10;
         }
 
         .popup-header h3 {
@@ -414,6 +419,8 @@
             line-height: 1.6;
             font-size: 0.9rem;
             color: var(--text-color);
+            overflow-y: auto;
+            max-height: calc(70vh - 70px);
         }
 
         /* Footer */
@@ -458,13 +465,18 @@
             .header-container {
                 flex-direction: column;
             }
+
+            .article-popup {
+                width: 280px;
+                max-height: 60vh;
+            }
         }
     </style>
 </head>
 <body class="dark-mode">
     <header>
         <div class="header-container">
-            <h1>Marco Murgia</h1>
+            <h1>Marco Murgia's Notebook</h1>
             <div class="manuzio-separator" id="manuzio-menu-toggle">⁂⁂⁂</div>
             <button id="theme-toggle" class="theme-toggle">
                 <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -524,31 +536,34 @@
                 <p>Systematic investigations: something that will never be very thorough or complete.</p>
             </div>
             
-            <div class="three-column-layout">
-                <div class="annual-function">c.12</div>
-                <div class="observation-content">
-                    <h3>The Limits of Empirical Knowledge</h3>
-                    <p>An examination of the boundaries of what can be known through empirical observation and the role of a priori reasoning in filling these gaps. This investigation explores the intersection of Kantian epistemology with contemporary cognitive science.</p>
+            <div id="investigation-articles">
+                <!-- Gli articoli saranno ordinati automaticamente da JavaScript -->
+                <div class="three-column-layout" data-date="2023-09-17">
+                    <div class="annual-function">c.10</div>
+                    <div class="observation-content">
+                        <h3>Temporal Parts and Personal Identity</h3>
+                        <p>A critical assessment of the theory of temporal parts and its implications for our understanding of personal identity over time, with responses to Parfit's reductionist account.</p>
+                    </div>
+                    <div class="observation-date">17.09.2023</div>
                 </div>
-                <div class="observation-date">15.11.2023</div>
-            </div>
-            
-            <div class="three-column-layout">
-                <div class="annual-function">c.11</div>
-                <div class="observation-content">
-                    <h3>Heuristics and Biases in Philosophical Reasoning</h3>
-                    <p>An analysis of how cognitive heuristics and biases influence philosophical argumentation, with particular attention to confirmation bias in the formation of metaphysical systems.</p>
+                
+                <div class="three-column-layout" data-date="2023-10-22">
+                    <div class="annual-function">c.11</div>
+                    <div class="observation-content">
+                        <h3>Heuristics and Biases in Philosophical Reasoning</h3>
+                        <p>An analysis of how cognitive heuristics and biases influence philosophical argumentation, with particular attention to confirmation bias in the formation of metaphysical systems.</p>
+                    </div>
+                    <div class="observation-date">22.10.2023</div>
                 </div>
-                <div class="observation-date">22.10.2023</div>
-            </div>
-            
-            <div class="three-column-layout">
-                <div class="annual-function">c.10</div>
-                <div class="observation-content">
-                    <h3>Temporal Parts and Personal Identity</h3>
-                    <p>A critical assessment of the theory of temporal parts and its implications for our understanding of personal identity over time, with responses to Parfit's reductionist account.</p>
+                
+                <div class="three-column-layout" data-date="2023-11-15">
+                    <div class="annual-function">c.12</div>
+                    <div class="observation-content">
+                        <h3>The Limits of Empirical Knowledge</h3>
+                        <p>An examination of the boundaries of what can be known through empirical observation and the role of a priori reasoning in filling these gaps. This investigation explores the intersection of Kantian epistemology with contemporary cognitive science.</p>
+                    </div>
+                    <div class="observation-date">15.11.2023</div>
                 </div>
-                <div class="observation-date">17.09.2023</div>
             </div>
             
             <div style="text-align: center;">
@@ -563,31 +578,34 @@
                 <p>Random observations and thoughts</p>
             </div>
             
-            <div class="three-column-layout">
-                <div class="annual-function">d.24</div>
-                <div class="observation-content">
-                    <h3>On the Nature of Time</h3>
-                    <p>The clock measures time but does not explain it. We slice existence into segments, yet the flow remains mysterious. Is time a fundamental property of the universe or a construct of human consciousness?</p>
+            <div id="sudelbucher-articles">
+                <!-- Gli articoli saranno ordinati automaticamente da JavaScript -->
+                <div class="three-column-layout" data-date="2023-11-15">
+                    <div class="annual-function">d.22</div>
+                    <div class="observation-content">
+                        <h3>Memory and Identity</h3>
+                        <p>We are not just what we remember, but also what we've forgotten. The gaps in our memory shape us as much as the preserved moments. Forgetting is not a failure of memory but its necessary counterpart.</p>
+                    </div>
+                    <div class="observation-date">15.11.2023</div>
                 </div>
-                <div class="observation-date">05.12.2023</div>
-            </div>
-            
-            <div class="three-column-layout">
-                <div class="annual-function">d.23</div>
-                <div class="observation-content">
-                    <h3>The Library as Mind</h3>
-                    <p>A library is not merely a collection of books but an externalized mind. Each volume represents a thought, a perspective, a world. To walk through stacks is to traverse the conceptual universe of humanity.</p>
+                
+                <div class="three-column-layout" data-date="2023-11-28">
+                    <div class="annual-function">d.23</div>
+                    <div class="observation-content">
+                        <h3>The Library as Mind</h3>
+                        <p>A library is not merely a collection of books but an externalized mind. Each volume represents a thought, a perspective, a world. To walk through stacks is to traverse the conceptual universe of humanity.</p>
+                    </div>
+                    <div class="observation-date">28.11.2023</div>
                 </div>
-                <div class="observation-date">28.11.2023</div>
-            </div>
-            
-            <div class="three-column-layout">
-                <div class="annual-function">d.22</div>
-                <div class="observation-content">
-                    <h3>Memory and Identity</h3>
-                    <p>We are not just what we remember, but also what we've forgotten. The gaps in our memory shape us as much as the preserved moments. Forgetting is not a failure of memory but its necessary counterpart.</p>
+                
+                <div class="three-column-layout" data-date="2023-12-05">
+                    <div class="annual-function">d.24</div>
+                    <div class="observation-content">
+                        <h3>On the Nature of Time</h3>
+                        <p>The clock measures time but does not explain it. We slice existence into segments, yet the flow remains mysterious. Is time a fundamental property of the universe or a construct of human consciousness?</p>
+                    </div>
+                    <div class="observation-date">05.12.2023</div>
                 </div>
-                <div class="observation-date">15.11.2023</div>
             </div>
             
             <div style="text-align: center;">
@@ -596,7 +614,7 @@
         </div>
     </main>
     
-    <!-- Popup Generico -->
+    <!-- Popup Generico - MODIFICATO -->
     <div class="article-popup" id="article-popup">
         <div class="popup-header">
             <h3 id="popup-title">Popup Title</h3>
@@ -638,6 +656,41 @@
             const sudelbucherSection = document.getElementById('sudelbucher-section');
             const backFromInvestigation = document.getElementById('back-from-investigation');
             const backFromSudelbucher = document.getElementById('back-from-sudelbucher');
+            
+            // 1. ORDINAMENTO AUTOMATICO DEGLI ARTICOLI
+            function sortArticlesByDate(containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                
+                const articles = Array.from(container.getElementsByClassName('three-column-layout'));
+                
+                // Ordina gli articoli per data (dalla più vecchia alla più nuova)
+                articles.sort((a, b) => {
+                    const dateA = new Date(a.getAttribute('data-date'));
+                    const dateB = new Date(b.getAttribute('data-date'));
+                    return dateA - dateB;
+                });
+                
+                // Rimuovi tutti gli articoli dal contenitore
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+                
+                // Reinserisci gli articoli ordinati
+                articles.forEach(article => {
+                    container.appendChild(article);
+                });
+            }
+            
+            // Applica l'ordinamento alle due sezioni
+            sortArticlesByDate('investigation-articles');
+            sortArticlesByDate('sudelbucher-articles');
+            
+            // 2. GESTIONE POPUP MIGLIORATA
+            let popupTimeout;
+            let activePopup = null;
+            let isPopupHovered = false;
+            let isScrollingPopup = false;
             
             // Controlla se c'è una preferenza salvata
             const savedTheme = localStorage.getItem('theme');
@@ -690,10 +743,7 @@
                 homePage.classList.add('active');
             });
             
-            // Gestione popup che segue il mouse
-            let popupTimeout;
-            let activePopup = null;
-            
+            // Gestione popup che segue il mouse - MODIFICATA
             document.querySelectorAll('a[data-popup]').forEach(link => {
                 link.addEventListener('mouseenter', function(e) {
                     const title = this.getAttribute('data-title');
@@ -705,29 +755,32 @@
                         popupContent.innerHTML = content;
                         
                         // Posiziona il popup vicino al cursore
-                        popup.style.left = (e.clientX + 15) + 'px';
-                        popup.style.top = (e.clientY + 15) + 'px';
+                        positionPopup(e.clientX, e.clientY);
                         
                         popup.classList.add('active');
                         activePopup = popup;
+                        isPopupHovered = false;
                     }
                 });
                 
                 link.addEventListener('mousemove', function(e) {
-                    if (activePopup === popup) {
+                    if (activePopup === popup && !isScrollingPopup) {
                         // Posiziona il popup vicino al cursore
-                        popup.style.left = (e.clientX + 15) + 'px';
-                        popup.style.top = (e.clientY + 15) + 'px';
+                        positionPopup(e.clientX, e.clientY);
                     }
                 });
                 
                 link.addEventListener('mouseleave', function() {
-                    popupTimeout = setTimeout(() => {
-                        if (activePopup === popup) {
-                            popup.classList.remove('active');
-                            activePopup = null;
-                        }
-                    }, 300);
+                    // Se il mouse non è sul popup, chiudi dopo un breve ritardo
+                    if (!isPopupHovered) {
+                        popupTimeout = setTimeout(() => {
+                            if (activePopup === popup) {
+                                popup.classList.remove('active');
+                                activePopup = null;
+                                document.body.style.overflow = ''; // Riabilita lo scrolling
+                            }
+                        }, 300);
+                    }
                 });
                 
                 // Previeni il comportamento predefinito del link
@@ -736,27 +789,80 @@
                 });
             });
             
-            // Gestione hover sui popup
+            // Funzione per posizionare il popup
+            function positionPopup(x, y) {
+                const popupWidth = popup.offsetWidth;
+                const popupHeight = popup.offsetHeight;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                
+                // Calcola la posizione per evitare che esca dalla finestra
+                let left = x + 15;
+                let top = y + 15;
+                
+                if (left + popupWidth > windowWidth) {
+                    left = x - popupWidth - 15;
+                }
+                
+                if (top + popupHeight > windowHeight) {
+                    top = windowHeight - popupHeight - 15;
+                }
+                
+                // Applica la posizione
+                popup.style.left = left + 'px';
+                popup.style.top = top + 'px';
+            }
+            
+            // Gestione hover sui popup - MODIFICATA
             popup.addEventListener('mouseenter', () => {
                 clearTimeout(popupTimeout);
+                isPopupHovered = true;
+            });
+            
+            popup.addEventListener('mousemove', (e) => {
+                // Permetti lo scrolling all'interno del popup
+                e.stopPropagation();
             });
             
             popup.addEventListener('mouseleave', () => {
+                isPopupHovered = false;
                 popupTimeout = setTimeout(() => {
-                    popup.classList.remove('active');
-                    activePopup = null;
+                    if (activePopup === popup) {
+                        popup.classList.remove('active');
+                        activePopup = null;
+                        document.body.style.overflow = ''; // Riabilita lo scrolling
+                    }
                 }, 300);
+            });
+            
+            // Permetti lo scrolling all'interno del popup
+            popup.addEventListener('wheel', (e) => {
+                e.stopPropagation();
+                isScrollingPopup = true;
+                
+                // Riabilita lo scrolling dopo un breve ritardo
+                setTimeout(() => {
+                    isScrollingPopup = false;
+                }, 100);
+            });
+            
+            // Disabilita lo scrolling della pagina quando il popup è attivo
+            popup.addEventListener('mouseenter', function() {
+                document.body.style.overflow = 'hidden';
+            });
+            
+            popup.addEventListener('mouseleave', function() {
+                document.body.style.overflow = '';
             });
             
             // Chiudi popup
             closeBtn.addEventListener('click', function() {
                 popup.classList.remove('active');
                 activePopup = null;
+                isPopupHovered = false;
+                document.body.style.overflow = ''; // Riabilita lo scrolling
             });
         });
     </script>
 </body>
-
 </html>
-
-
