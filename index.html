@@ -300,7 +300,7 @@
             color: var(--text-color);
         }
 
-        .three-column-layout {
+        .two-column-layout {
             display: grid;
             grid-template-columns: 100px 1fr 120px;
             gap: 2rem;
@@ -454,7 +454,7 @@
                 grid-template-columns: 1fr;
             }
             
-            .three-column-layout {
+            .two-column-layout {
                 grid-template-columns: 80px 1fr 100px;
                 gap: 1rem;
             }
@@ -548,7 +548,7 @@
             
             <div id="investigation-articles">
                 <!-- Gli articoli saranno ordinati automaticamente da JavaScript -->
-                <div class="three-column-layout" data-date="2023-09-17">
+                <div class="two-column-layout" data-date="2023-09-17">
                     <div class="annual-function">c.10</div>
                     <div class="observation-content">
                         <h3>Temporal Parts and Personal Identity</h3>
@@ -557,7 +557,7 @@
                     <div class="observation-date">17.09.2023</div>
                 </div>
                 
-                <div class="three-column-layout" data-date="2023-10-22">
+                <div class="two-column-layout" data-date="2023-10-22">
                     <div class="annual-function">c.11</div>
                     <div class="observation-content">
                         <h3>Heuristics and Biases in Philosophical Reasoning</h3>
@@ -566,7 +566,7 @@
                     <div class="observation-date">22.10.2023</div>
                 </div>
                 
-                <div class="three-column-layout" data-date="2023-11-15">
+                <div class="two-column-layout" data-date="2023-11-15">
                     <div class="annual-function">c.12</div>
                     <div class="observation-content">
                         <h3>The Limits of Empirical Knowledge</h3>
@@ -590,34 +590,34 @@
             
             <div id="sudelbucher-articles">
                 <!-- Gli articoli saranno ordinati automaticamente da JavaScript --> 
-                <div class="three-column-layout" data-date="2025-09-11">
+                <div class="two-column-layout" data-date="2025-09-11">
                     <div class="annual-function">a.1</div>
                     <div class="observation-content">
                         <p>The exercise of your free will is not so much about the quantity of things you explore, but about your willingness to explore the things you want to explore.</p>
                 </div>
 
-                <div class="three-column-layout" data-date="2025-09-11">
+                <div class="two-column-layout" data-date="2025-09-11">
                     <div class="annual-function">a.2</div>
                     <div class="observation-content">
                         <p>You can determine your role in the context, not your nature within it.</p>
                     </div>
                 </div>
 
-                <div class="three-column-layout" data-date="2025-09-12">
+                <div class="two-column-layout" data-date="2025-09-12">
                     <div class="annual-function">a.3</div>
                     <div class="observation-content">
                         <p>If you believe that rational argumentation can truly convince someone, then you are the irrational one.</p>
                     </div>
                 </div>
 
-                <div class="three-column-layout" data-date="2025-09-12">
+                <div class="two-column-layout" data-date="2025-09-12">
                     <div class="annual-function">a.4</div>
                     <div class="observation-content">
                         <p>If what you want to say is difficult, appeal to the instincts.</p>
                     </div>
                 </div>
 
-                <div class="three-column-layout" data-date="2025-09-13">
+                <div class="two-column-layout" data-date="2025-09-13">
                     <div class="annual-function">a.5</div>
                     <div class="observation-content">
                         <p>The problem with laws: fixity versus the changeability of the people. In order not to stifle them, there must be few laws, valid for all times and allowing for a certain degree of variation: since laws do not mirror the people but reflect their greatest flaws - what we want to avoid in the people, the obstacles to power. Otherwise, there will be imbalance.</p>
@@ -679,7 +679,7 @@
                 const container = document.getElementById(containerId);
                 if (!container) return;
                 
-                const articles = Array.from(container.getElementsByClassName('three-column-layout'));
+                const articles = Array.from(container.getElementsByClassName('two-column-layout'));
                 
                 // Ordina gli articoli per data (dalla più vecchia alla più nuova)
                 articles.sort((a, b) => {
@@ -883,6 +883,7 @@
     </script>
 </body>
 </html>
+
 
 
 
